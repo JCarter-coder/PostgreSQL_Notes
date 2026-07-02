@@ -61,17 +61,17 @@ NOTE: New databases cannot be created if TEMPLATE1 is being accessed. Have all u
 
 ### To Create a Template Database
 ```
-mydatabase=# CREATE DATABASE supertemplate;
+postgres=# CREATE DATABASE supertemplate;
 
-mydatabase=# CREATE TABLE supertable ();
+postgres=# CREATE TABLE supertable ();
 
-mydatabase=# CREATE DATABASE superdatabase WITH TEMPLATE supertemplate;
+postgres=# CREATE DATABASE superdatabase WITH TEMPLATE supertemplate;
 -- this will create a new database with the supertemplate which includes the supertable
 ```
 
 ### To Create a Database
 ```
-mydatabase=# CREATE DATABASE name
+postgres=# CREATE DATABASE name
   [ [ WITH ] [ OWNER [=] user_name ]
     [ TEMPLATE [=] template ]
     [ ENCODING [=] encoding ]
@@ -89,9 +89,9 @@ Default Settings:
 
 Show all schemas:
 ```
-mydatabase=# CREATE SCHEMA tech;
+postgres=# CREATE SCHEMA tech;
 CREATE SCHEMA
-mydatabase=# \dn
+postgres=# \dn
   List of schemas
   Name  |  Owner
 --------+----------
@@ -112,29 +112,29 @@ Roles have attributes and privileges
 - PASSWORD
 
 ```
-mydatabase=# CREATE ROLE readonly WITH LOGIN ENCRYPTED PASSWORD 'readonly';
+postgres=# CREATE ROLE readonly WITH LOGIN ENCRYPTED PASSWORD 'readonly';
 ```
 
 ### View Roles
 ```
-mydatabase=# \du
+postgres=# \du
 ```
 NOTE: by default, only creator of the database and superuser has access to the database objects
 
 ### Create Role
 ```
-mydatabase=# CREATE ROLE employee_read;
-mydatabase=# GRANT SELECT ON ALL TABLES IN SCHEMA public TO employee_read;
+postgres=# CREATE ROLE employee_read;
+postgres=# GRANT SELECT ON ALL TABLES IN SCHEMA public TO employee_read;
 ```
 
 ### Create User
 ```
-mydatabase=# CREATE USER test_user WITH LOGIN ENCRYPTED PASSWORD 'password';
+postgres=# CREATE USER test_user WITH LOGIN ENCRYPTED PASSWORD 'password';
 ```
 
 ### Add Role
 ```
-mydatabase=# GRANT employee_read TO test_user;
+postgres=# GRANT employee_read TO test_user;
 ```
 
 Note: You can also create a role within the CLI without being logged into postgres.
@@ -143,7 +143,7 @@ createuser --interactive
 ```
 However, if you want to add a password to this role, you'll need to log into postgres and run:
 ```
-mydatabase=# ALTER ROLE interactive_user_name WITH ENCRYPTED PASSWORD 'password';
+postgres=# ALTER ROLE interactive_user_name WITH ENCRYPTED PASSWORD 'password';
 ```
 
 Login method of postgres is set to 'Trust' by default. Modify the following files to enable password encryption.
@@ -153,12 +153,12 @@ Login method of postgres is set to 'Trust' by default. Modify the following file
 Find the path to these files by running the following commands:
 For authentication connection methods...
 ```
-mydatabase=# show hba_file;
+postgres=# show hba_file;
 /../pg_hba.conf
 ```
 General configuration of PostgreSQL...
 ```
-mydatabase=# show config_file;
+postgres=# show config_file;
 /../postgresql.conf
 ```
 
@@ -195,3 +195,27 @@ GRANT [SELECT, UPDATE, INSERT, ...] ON <table> [IN SCHEMA <schema>] TO <user>;
 - text[]
 - float4[]
 - \<Data Type\>[]
+
+### Custom Data Types
+
+Custom types can also be created. The following is a possible example.
+
+```
+CREATE DOMAIN Rating SMALLINT 
+  CHECK (VALUE > 0 AND VALUE <= 5);
+
+CREATE TYPE Feedback AS (
+  student_id UUID,
+  rating SMALLINT,
+  feedback TEXT
+);
+```
+
+## Tables
+
+```
+CREATE TABLE my_table (
+  my_table_id <TYPE> [CONSTRAINT],
+  table_constraint [CONSTRAINT]
+) [INHERITS <existing_table>];
+```
