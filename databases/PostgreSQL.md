@@ -219,3 +219,28 @@ CREATE TABLE my_table (
   table_constraint [CONSTRAINT]
 ) [INHERITS <existing_table>];
 ```
+
+## Backups
+
+### Have a Plan
+
+1. Backup Plan
+2. Disaster Recovery Plan
+3. Test Your Plan
+
+Decide what to back up.
+
+| **Type** | **Purpose** | **Frequency** |
+| :--- | :------ | :-------: |
+| **Full Backup** | backup all data | less often |
+| **Incremental** | backup data that changed since the last incremental backup (or since the last full backup if an incremental hasn't been done yet) | often |
+| **Differential** | backup data that changed since the last full backup | often |
+| **Transactional Log** | backup of database transactions | very often |
+
+What are the appropriate ways to back up? (e.g. hardware, software, data)
+
+Decide how frequently to back up 
+
+Decide where to store backups
+
+Have a retention policy for backups
