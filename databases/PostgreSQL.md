@@ -244,3 +244,15 @@ Decide how frequently to back up
 Decide where to store backups
 
 Have a retention policy for backups
+
+### Backing Up in Postgres
+
+`pg_dump dbname > outfile`
+
+Or use Valentina Studio, right click the database, and select 'Create Dump...' then select your options.
+
+Also available is pgBackRest (a PostgreSQL Backup & Restore utility).
+
+### Restoring A Database
+
+In Valentina Studio, click 'File' and select 'Load Dump', then follow instructions.
