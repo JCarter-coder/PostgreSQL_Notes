@@ -256,3 +256,16 @@ Also available is pgBackRest (a PostgreSQL Backup & Restore utility).
 ### Restoring A Database
 
 In Valentina Studio, click 'File' and select 'Load Dump', then follow instructions.
+
+## Transactions
+
+`BEGIN;` To start a transaction.
+Run write commands...
+`ROLLBACK;` This will cancel the transaction.
+`COMMIT;` or `END;` This will complete the transaction.
+
+### ACID
+Atomicity - execute transaction entirely or not at all
+Consistency - transaction should leave the database in a consistent state (commit or rollback)
+Isolation - executed in isolation from other transactions
+Durability - changes in database persist after transaction
